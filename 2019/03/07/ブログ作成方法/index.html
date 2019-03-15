@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="文系ハック">
 <meta property="og:description" content="初投稿。 きっかけは、世の中のエンジニアの方々がブログやQiitaを通してアウトプットする姿にかっこよさを感じ、真似すればかっこよいエンジニアなれると信じブログをはじめました。なれなかったら恨みます 最初の投稿はこのブログついて書こうと思います。 経緯最初ははてなブログで作ろうと思っていました。理由は非常に簡単にブログを作成できそうだったからです。（はてブをやってるので…） けどもいまいちモチベー">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-13T16:31:17.470Z">
+<meta property="og:updated_time" content="2019-03-15T15:12:36.103Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ブログを作ったよ">
 <meta name="twitter:description" content="初投稿。 きっかけは、世の中のエンジニアの方々がブログやQiitaを通してアウトプットする姿にかっこよさを感じ、真似すればかっこよいエンジニアなれると信じブログをはじめました。なれなかったら恨みます 最初の投稿はこのブログついて書こうと思います。 経緯最初ははてなブログで作ろうと思っていました。理由は非常に簡単にブログを作成できそうだったからです。（はてブをやってるので…） けどもいまいちモチベー">
@@ -106,9 +106,27 @@
 <p>上記まで行うと、ローカルサーバで、作成したプロジェクトを確認できるようになります。</p>
 <p>そのためにHexoサーバを起動してください。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
-<p>コマンドをたたくと、 </p>
+<p>コマンドを実行すると、 </p>
 <p><code>[info] Hexo is running at http://localhost:4000/. Press Ctrl+C to stop.</code> </p>
-<p>といったテキストが表示されるので、at以下のURLをたたいてください。</p>
+<p>といったテキストが表示されるので、<code>http://localhost:4000/</code>にアクセスすれば、ローカルで確認ができます。</p>
+<p>次に、Hexoで作成したファイルをGitHubPagesで公開します。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi _config.yml</span><br></pre></td></tr></table></figure>
+<p>でYmlファイルを表示します。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: http://hexo.io/docs/deployment.html</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  type:</span></span><br></pre></td></tr></table></figure>
+<p>と書いてある箇所を確認してください。</p>
+<p>編集モードにして、</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Deployment</span><br><span class="line">## Docs: https://hexo.io/docs/deployment.html</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:hoge/hoge.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<p>に書き換えてください。</p>
+<p>※<code>hoge</code>はご自身のユーザー名が入ります</p>
+<p>編集後、<code>esc</code>キーで表示モードに戻り、<code>:wq</code>で編集を保存してください。</p>
+<p>この状態でデプロイをしてもエラーが出てしまいます。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-deployer-git</span> <span class="bullet">--save</span></span><br></pre></td></tr></table></figure>
+<p>でGitHubにデプロイできるようにするプラグインをインストールしてください。</p>
+<p>インストール後、</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy -g</span><br></pre></td></tr></table></figure>
+<p>でGitHubPagesへHexoでの変更を反映してください。</p>
+<p>反映後、自身のGitHubPagesのURLにアクセスしてください。</p>
+<p>変更内容が反映されていたらデプロイ完了です。</p>
 <h2 id="所感"><a href="#所感" class="headerlink" title="所感"></a>所感</h2><ul>
 <li><p>Markdownでブロクの作成ができCUIでデプロイができるのが非常に便利。</p>
 </li>
