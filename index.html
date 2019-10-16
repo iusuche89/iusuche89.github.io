@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <title>文系ハック</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="keywords" content="エンジニア,初心者,文系">
+<meta property="og:type" content="website">
+<meta property="og:title" content="文系ハック">
+<meta property="og:url" content="http://iusuche89.github.io/index.html">
+<meta property="og:site_name" content="文系ハック">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="文系ハック">
+  
+    <link rel="alternate" href="/atom.xml" title="文系ハック" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">文系ハック</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://iusuche89.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-git-hook-commit-msg" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/21/git-hook-commit-msg/" class="article-date">
+  <time datetime="2019-03-21T03:40:59.000Z" itemprop="datePublished">2019-03-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/21/git-hook-commit-msg/">GitHookでブランチ名の一部をコミットメッセージに組み込む</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>共同開発などでブランチ名をコミットメッセージに入れたい場合があったのでGitHookを使って自動的に入力されるようにしました。</p>
+<p>※今回は、ブランチ名に共通した文字列が含むことを前提としています。</p>
+<h2 id="GitHookとは？"><a href="#GitHookとは？" class="headerlink" title="GitHookとは？"></a>GitHookとは？</h2><ul>
+<li>Gitで、特定のアクション（git branchなど）が実行されたときに、スクリプトを実行する機能です。</li>
+</ul>
+<h2 id="やり方"><a href="#やり方" class="headerlink" title="やり方"></a>やり方</h2><p>肝心のスクリプトを実行するファイル群は、 <code>.git/hooks</code> ディレクトリにあります。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd [gitディレクトリ]/.git/hooks</span><br></pre></td></tr></table></figure>
+<p>今回はコミットメッセージを編集することが目的なので、<code>hooks</code>ディレクトリにある<code>commit-msg.sample</code>を編集します。</p>
+<p>まず、ファイル名を編集します。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv commit-msg.sample commit-msg</span><br></pre></td></tr></table></figure>
+<p>編集後、</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi commit-msg</span><br></pre></td></tr></table></figure>
+<p>でファイル閲覧モードに切り替えてください。</p>
+<p>編集モードに変更したら、</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if git branch | grep &apos;*&apos; | grep &apos;xxx&apos;;</span><br><span class="line">then</span><br><span class="line">    NAME=$(git branch | grep &apos;*&apos; | sed &apos;s/* //&apos; | sed &apos;s/xxx_//&apos;)</span><br><span class="line">    echo &apos;【&apos;&quot;$NAME&quot;&apos;】&apos;$(cat &quot;$1&quot;) &gt; &quot;$1&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<p>を挿入しEscキーをクリック後、<code>:wq</code>で保存してください。</p>
+<p>保存後、ブランチ名が<code>xxx_test</code>のようなもので検証してみましょう。</p>
+<p>ブランチ名が<code>xxx_hoge</code>のとき、<code>【hoge】テスト</code>といったコミットメッセージを自動的に作成することができます。</p>
+<h2 id="解説"><a href="#解説" class="headerlink" title="解説"></a>解説</h2><p><code>commit-msg</code>ファイルに挿入した一行目のif条件の1つ目<code>git branch</code>で、該当プロジェクトでローカルで作成したブランチの一覧を取得しています。</p>
+<p>2つ目<code>grep &#39;*&#39;</code>で現在のブランチを取得。</p>
+<p>3つ目<code>grep &#39;xxx&#39;</code>で現在のブランチの名前に<code>xxx</code>が含まれているかチェックしています。</p>
+<p>チェックを通過すると、最初のthen以下が読み込まれます。</p>
+<p><code>NAME</code>変数に該当ブランチの必要な箇所の格納をしています。</p>
+<p><code>git branch | grep &#39;*&#39;</code>で同様に現在のブランチを取得し、二回の<code>sed</code>(PHPでいう<code>str_replace</code>)で必要な、共通箇所以外の部分を抜き出しています。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://git-scm.com/book/ja/v1/Git-%E3%81%AE%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA-Git-%E3%83%95%E3%83%83%E3%82%AF" target="_blank" rel="noopener">Gitフックとは</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://iusuche89.github.io/2019/03/21/git-hook-commit-msg/" data-id="ck1nocd4i0000jk5j73nx4ehy" data-title="GitHookでブランチ名の一部をコミットメッセージに組み込む" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-ブログ作成方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/07/ブログ作成方法/" class="article-date">
+  <time datetime="2019-03-07T06:50:42.000Z" itemprop="datePublished">2019-03-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/07/ブログ作成方法/">ブログを作ったよ</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>初投稿。</p>
+<p>きっかけは、世の中のエンジニアの方々がブログやQiitaを通してアウトプットする姿にかっこよさを感じ、真似すればかっこよいエンジニアなれると信じブログをはじめました。<br><del>なれなかったら恨みます</del></p>
+<p>最初の投稿はこのブログの作り方ついて書こうと思います。</p>
+<h2 id="経緯"><a href="#経緯" class="headerlink" title="経緯"></a>経緯</h2><p>最初ははてなブログで作ろうと思っていました。理由は非常に簡単にブログを作成できそうだったからです。<br>（はてブをやってるので…）</p>
+<p>けどもいまいちモチベーションが上がらず、挙句の果て、どんなことを書けばよいのかわからなくなっていました。</p>
+<p>そんな中、GitHubPagesを教えてもらい、草はやせてモチベアップするやん！と思い一念発起してブログを始めました。</p>
+<h2 id="やり方"><a href="#やり方" class="headerlink" title="やり方"></a>やり方</h2><p>ここでは、Hexoの登録からデプロイまでの流れを説明します。</p>
+<p>それ以外のGitHubの登録とインストール、node.jsのインストールの方法については参考に上げた記事をご確認ください。</p>
+<p>※以下はGitHubPages・node.jsインストールしてある前提で話が進みます。</p>
+<p>まずHexoをインストールします。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo</span><br></pre></td></tr></table></figure>
+<p>インストール後、Hexoブログの新規プロジェクトを立ち上げます。</p>
+<p>※Hexoインストール後、 <code>hexo</code> コマンドが利用できるようになります。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init [プロジェクト名]</span><br></pre></td></tr></table></figure>
+<p>作成後、作成したフォルダ内に必要なモジュールを入れます。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd [プロジェクト名]</span><br><span class="line"></span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<p>上記まで行うと、ローカルサーバで、作成したプロジェクトを確認できるようになります。</p>
+<p>そのためにHexoサーバを起動してください。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+<p>コマンドを実行すると、 </p>
+<p><code>[info] Hexo is running at http://localhost:4000/. Press Ctrl+C to stop.</code> </p>
+<p>といったテキストが表示されるので、<code>http://localhost:4000/</code>にアクセスすれば、ローカルで確認ができます。</p>
+<p>次に、Hexoで作成したファイルをGitHubPagesで公開します。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi _config.yml</span><br></pre></td></tr></table></figure>
+<p>でYmlファイルを表示します。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: http://hexo.io/docs/deployment.html</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  type:</span></span><br></pre></td></tr></table></figure>
+<p>と書いてある箇所を確認してください。</p>
+<p>編集モードにして、</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Deployment</span><br><span class="line">## Docs: https://hexo.io/docs/deployment.html</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:hoge/hoge.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<p>に書き換えてください。</p>
+<p>※<code>hoge</code>はご自身のユーザー名が入ります</p>
+<p>編集後、<code>esc</code>キーで表示モードに戻り、<code>:wq</code>で編集を保存してください。</p>
+<p>この状態でデプロイをしてもエラーが出てしまいます。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-deployer-git</span> <span class="bullet">--save</span></span><br></pre></td></tr></table></figure>
+<p>でGitHubにデプロイできるようにするプラグインをインストールしてください。</p>
+<p>インストール後、</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy -g</span><br></pre></td></tr></table></figure>
+<p>でGitHubPagesへHexoでの変更を反映してください。</p>
+<p>反映後、自身のGitHubPagesのURLにアクセスしてください。</p>
+<p>変更内容が反映されていたらデプロイ完了です。</p>
+<h2 id="所感"><a href="#所感" class="headerlink" title="所感"></a>所感</h2><ul>
+<li><p>Markdownでブロクの作成ができCUIでデプロイができるのが非常に便利。</p>
+</li>
+<li><p>コマンドでのデプロイ後、２〜３分程度の反映ラグを感じた。（ブログなので、あんまり気にしなくて良いところかも）</p>
+</li>
+<li><p>Markdownについて業務で親しみがないなど利用機会がないが勉強がしたい場合は、Hexoなどの静的アプリを使うのはあり。</p>
+</li>
+<li><p>GitHubPagesを使うメリット→コード、ブログをGit管理できる。</p>
+</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><p><a href="https://hexo.io/" target="_blank" rel="noopener">Hexo公式サイト</a></p>
+</li>
+<li><p><a href="https://qiita.com/kyosuke5_20/items/c5f68fc9d89b84c0df09" target="_blank" rel="noopener">node.jsのインストール</a></p>
+</li>
+<li><p><a href="https://www.tam-tam.co.jp/tipsnote/html_css/post11245.html" target="_blank" rel="noopener">GitHubPagesのリポジトリ作成方法</a></p>
+</li>
+<li><p><a href="https://qiita.com/maitake9116/items/7825d90c09f3e2f87dea" target="_blank" rel="noopener">npmとは？</a></p>
+</li>
+<li><p><a href="https://qiita.com/okmttdhr/items/82ecb0332835472e905f" target="_blank" rel="noopener">HitHubPagesで構築可能な静的サイトジェネレータ一覧</a></p>
+</li>
+<li><p><a href="https://qiita.com/kokushin/items/9a08d6f63db7a4824e05" target="_blank" rel="noopener">この一年間、自分がGitHubで取り組んできたことを紹介してみる</a></p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://iusuche89.github.io/2019/03/07/ブログ作成方法/" data-id="ck1nocd4r0001jk5jank3i6od" data-title="ブログを作ったよ" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/21/git-hook-commit-msg/">GitHookでブランチ名の一部をコミットメッセージに組み込む</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/07/ブログ作成方法/">ブログを作ったよ</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Yusuke Yamazaki<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
