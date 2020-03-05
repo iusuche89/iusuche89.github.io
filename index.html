@@ -65,6 +65,81 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-TDDとモブプログラミングをしてきた" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/05/TDDとモブプログラミングをしてきた/" class="article-date">
+  <time datetime="2020-03-05T03:14:24.000Z" itemprop="datePublished">2020-03-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/05/TDDとモブプログラミングをしてきた/">TDDとモブプロしてきた</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><ul>
+<li>モブプログラミング（以下、モブプロ）とTDDの２つを勉強会にてやってみたので、その所感などを記載します。</li>
+</ul>
+<h2 id="モブプログラミングって？"><a href="#モブプログラミングって？" class="headerlink" title="モブプログラミングって？"></a>モブプログラミングって？</h2><ul>
+<li>ドライバーとナビゲータで役割を分け、一つの画面で一緒にプログラミングを行うこと。<ul>
+<li>ドライバー：コーディングを行う人</li>
+<li>ナビゲータ： 実装を手助けする人</li>
+</ul>
+</li>
+</ul>
+<h2 id="TDDって？"><a href="#TDDって？" class="headerlink" title="TDDって？"></a>TDDって？</h2><ul>
+<li>テスト駆動開発（Test Driven Development）の略</li>
+<li>実装の前にテストコードを書き、テストに適するかたちで実装を行うことを指す。</li>
+</ul>
+<h1 id="勉強会で両方やってみた"><a href="#勉強会で両方やってみた" class="headerlink" title="勉強会で両方やってみた"></a>勉強会で両方やってみた</h1><h2 id="どんな勉強会？"><a href="#どんな勉強会？" class="headerlink" title="どんな勉強会？"></a>どんな勉強会？</h2><ul>
+<li><p>モブプロでTDDしようという勉強会でした。</p>
+</li>
+<li><p>TDDは、レッド（テストで失敗させる）<br><br>&rarr; グリーン（テストを成功させる）<br><br>&rarr;リファクタリング（コードをきれいにする）<br>の流れで開発のサイクルをまわします。</p>
+</li>
+</ul>
+<p><img src="/2020/03/05/TDDとモブプログラミングをしてきた//tdd-circle.png"> </p>
+<h1 id="やってみた感想"><a href="#やってみた感想" class="headerlink" title="やってみた感想"></a>やってみた感想</h1><ul>
+<li><p>なにを実装するのかについてTODOをリストアップすることが非常に大事。</p>
+<ul>
+<li>今回はFizzBuzzでTDDを行いましたが、「①1の入れたとき、数字の1を返す。②3を入れたとき、Fizzを返す。」のように、自分たちが何を実装するのかをまず日本語で並べることで先の実装を含めイメージをすることができた。</li>
+</ul>
+</li>
+<li><p>モブプロは変数名一つについてもナビゲータたちと議論をして最適解を導き出すので、開発後の保守や運用においても対応が遅れるなどの問題が発生しにくいのではと思った。<br><br><br>例）仕様を一人のエンジニアしか理解しておらず、機能を追加する際に考慮漏れが発生するなど。</p>
+</li>
+<li><p>人によってコーディングの方針（どの関数を選ぶかなど）が異なるため、議論を重ねることで独りよがりのコーディングになりにくくなる。</p>
+</li>
+<li><p>RustでTDDを行ったが、自分の知らない言語を知る際の障壁が下がる。（TDDの良いところですね）</p>
+<ul>
+<li>知らない言語について勉強をする際にはTDDでとりあえず書いてみるというのはありだと思いました。</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://iusuche89.github.io/2020/03/05/TDDとモブプログラミングをしてきた/" data-id="ck7en8brx0000n45jl8mox5o0" data-title="TDDとモブプロしてきた" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-初laravel-shibuya" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/01/25/初laravel-shibuya/" class="article-date">
@@ -145,7 +220,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://iusuche89.github.io/2020/01/25/初laravel-shibuya/" data-id="ck5sd61bm00000g5jcu4p3mz7" data-title="laravel.shibuyaに行ってきた" class="article-share-link">Share</a>
+      <a data-url="http://iusuche89.github.io/2020/01/25/初laravel-shibuya/" data-id="ck7en8bsm0003n45js2tdjccr" data-title="laravel.shibuyaに行ってきた" class="article-share-link">Share</a>
       
       
       
@@ -210,7 +285,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://iusuche89.github.io/2019/03/21/git-hook-commit-msg/" data-id="ck5sd61bt00020g5jy4sl9anw" data-title="GitHookでブランチ名の一部をコミットメッセージに組み込む" class="article-share-link">Share</a>
+      <a data-url="http://iusuche89.github.io/2019/03/21/git-hook-commit-msg/" data-id="ck7en8bs40002n45j9h7knd5d" data-title="GitHookでブランチ名の一部をコミットメッセージに組み込む" class="article-share-link">Share</a>
       
       
       
@@ -257,7 +332,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo</span><br></pre></td></tr></table></figure>
 <p>インストール後、Hexoブログの新規プロジェクトを立ち上げます。</p>
 <p>※Hexoインストール後、 <code>hexo</code> コマンドが利用できるようになります。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init [プロジェクト名]</span><br></pre></td></tr></table></figure>
+<figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init [プロジェクト名]</span><br></pre></td></tr></table></figure>
 <p>作成後、作成したフォルダ内に必要なモジュールを入れます。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd [プロジェクト名]</span><br><span class="line"></span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
 <p>上記まで行うと、ローカルサーバで、作成したプロジェクトを確認できるようになります。</p>
@@ -312,7 +387,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://iusuche89.github.io/2019/03/07/ブログ作成方法/" data-id="ck5sd61br00010g5jzgleejih" data-title="ブログを作ったよ" class="article-share-link">Share</a>
+      <a data-url="http://iusuche89.github.io/2019/03/07/ブログ作成方法/" data-id="ck7en8bs20001n45jop7a5e29" data-title="ブログを作ったよ" class="article-share-link">Share</a>
       
       
       
@@ -342,7 +417,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
     </div>
   </div>
 
@@ -353,6 +428,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2020/03/05/TDDとモブプログラミングをしてきた/">TDDとモブプロしてきた</a>
+          </li>
         
           <li>
             <a href="/2020/01/25/初laravel-shibuya/">laravel.shibuyaに行ってきた</a>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  
+  <title>TDDとモブプロしてきた | 文系ハック</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="概要 モブプログラミング（以下、モブプロ）とTDDの２つを勉強会にてやってみたので、その所感などを記載します。  モブプログラミングって？ ドライバーとナビゲータで役割を分け、一つの画面で一緒にプログラミングを行うこと。 ドライバー：コーディングを行う人 ナビゲータ： 実装を手助けする人    TDDって？ テスト駆動開発（Test Driven Development）の略 実装の前にテストコー">
+<meta name="keywords" content="エンジニア,初心者,文系">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TDDとモブプロしてきた">
+<meta property="og:url" content="http://iusuche89.github.io/2020/03/05/TDDとモブプログラミングをしてきた/index.html">
+<meta property="og:site_name" content="文系ハック">
+<meta property="og:description" content="概要 モブプログラミング（以下、モブプロ）とTDDの２つを勉強会にてやってみたので、その所感などを記載します。  モブプログラミングって？ ドライバーとナビゲータで役割を分け、一つの画面で一緒にプログラミングを行うこと。 ドライバー：コーディングを行う人 ナビゲータ： 実装を手助けする人    TDDって？ テスト駆動開発（Test Driven Development）の略 実装の前にテストコー">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://iusuche89.github.io/2020/03/05/TDDとモブプログラミングをしてきた//tdd-circle.png">
+<meta property="og:updated_time" content="2020-03-05T11:04:51.843Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TDDとモブプロしてきた">
+<meta name="twitter:description" content="概要 モブプログラミング（以下、モブプロ）とTDDの２つを勉強会にてやってみたので、その所感などを記載します。  モブプログラミングって？ ドライバーとナビゲータで役割を分け、一つの画面で一緒にプログラミングを行うこと。 ドライバー：コーディングを行う人 ナビゲータ： 実装を手助けする人    TDDって？ テスト駆動開発（Test Driven Development）の略 実装の前にテストコー">
+<meta name="twitter:image" content="http://iusuche89.github.io/2020/03/05/TDDとモブプログラミングをしてきた//tdd-circle.png">
+  
+    <link rel="alternate" href="/atom.xml" title="文系ハック" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">文系ハック</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://iusuche89.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-TDDとモブプログラミングをしてきた" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/05/TDDとモブプログラミングをしてきた/" class="article-date">
+  <time datetime="2020-03-05T03:14:24.000Z" itemprop="datePublished">2020-03-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      TDDとモブプロしてきた
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><ul>
+<li>モブプログラミング（以下、モブプロ）とTDDの２つを勉強会にてやってみたので、その所感などを記載します。</li>
+</ul>
+<h2 id="モブプログラミングって？"><a href="#モブプログラミングって？" class="headerlink" title="モブプログラミングって？"></a>モブプログラミングって？</h2><ul>
+<li>ドライバーとナビゲータで役割を分け、一つの画面で一緒にプログラミングを行うこと。<ul>
+<li>ドライバー：コーディングを行う人</li>
+<li>ナビゲータ： 実装を手助けする人</li>
+</ul>
+</li>
+</ul>
+<h2 id="TDDって？"><a href="#TDDって？" class="headerlink" title="TDDって？"></a>TDDって？</h2><ul>
+<li>テスト駆動開発（Test Driven Development）の略</li>
+<li>実装の前にテストコードを書き、テストに適するかたちで実装を行うことを指す。</li>
+</ul>
+<h1 id="勉強会で両方やってみた"><a href="#勉強会で両方やってみた" class="headerlink" title="勉強会で両方やってみた"></a>勉強会で両方やってみた</h1><h2 id="どんな勉強会？"><a href="#どんな勉強会？" class="headerlink" title="どんな勉強会？"></a>どんな勉強会？</h2><ul>
+<li><p>モブプロでTDDしようという勉強会でした。</p>
+</li>
+<li><p>TDDは、レッド（テストで失敗させる）<br><br>&rarr; グリーン（テストを成功させる）<br><br>&rarr;リファクタリング（コードをきれいにする）<br>の流れで開発のサイクルをまわします。</p>
+</li>
+</ul>
+<p><img src="/2020/03/05/TDDとモブプログラミングをしてきた//tdd-circle.png"> </p>
+<h1 id="やってみた感想"><a href="#やってみた感想" class="headerlink" title="やってみた感想"></a>やってみた感想</h1><ul>
+<li><p>なにを実装するのかについてTODOをリストアップすることが非常に大事。</p>
+<ul>
+<li>今回はFizzBuzzでTDDを行いましたが、「①1の入れたとき、数字の1を返す。②3を入れたとき、Fizzを返す。」のように、自分たちが何を実装するのかをまず日本語で並べることで先の実装を含めイメージをすることができた。</li>
+</ul>
+</li>
+<li><p>モブプロは変数名一つについてもナビゲータたちと議論をして最適解を導き出すので、開発後の保守や運用においても対応が遅れるなどの問題が発生しにくいのではと思った。<br><br><br>例）仕様を一人のエンジニアしか理解しておらず、機能を追加する際に考慮漏れが発生するなど。</p>
+</li>
+<li><p>人によってコーディングの方針（どの関数を選ぶかなど）が異なるため、議論を重ねることで独りよがりのコーディングになりにくくなる。</p>
+</li>
+<li><p>RustでTDDを行ったが、自分の知らない言語を知る際の障壁が下がる。（TDDの良いところですね）</p>
+<ul>
+<li>知らない言語について勉強をする際にはTDDでとりあえず書いてみるというのはありだと思いました。</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://iusuche89.github.io/2020/03/05/TDDとモブプログラミングをしてきた/" data-id="ck7en8brx0000n45jl8mox5o0" data-title="TDDとモブプロしてきた" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/01/25/初laravel-shibuya/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">laravel.shibuyaに行ってきた</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/03/05/TDDとモブプログラミングをしてきた/">TDDとモブプロしてきた</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/25/初laravel-shibuya/">laravel.shibuyaに行ってきた</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/21/git-hook-commit-msg/">GitHookでブランチ名の一部をコミットメッセージに組み込む</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/07/ブログ作成方法/">ブログを作ったよ</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Yusuke Yamazaki<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
